@@ -1,4 +1,4 @@
-#V0
+# V0
 Using monolith architecture, with following stack below :
 - jQuery
 - Express

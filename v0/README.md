@@ -3,8 +3,10 @@ Using monolith architecture, with following stack below :
 - jQuery
 - Express
 
-## Basic Operation
+## Features
 - Create (on progress)
 - Update (on progress)
 - Read
 - Delete
+- Pagination
+- Search 

@@ -4,8 +4,8 @@ Using monolith architecture, with following stack below :
 - Express
 
 ## Features
-- Create (on progress)
-- Update (on progress)
+- Create 
+- Update
 - Read
 - Delete
 - Pagination

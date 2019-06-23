@@ -7,7 +7,8 @@ function composePhone(phone) {
         <br>
         ${phone.email}
         <br>
-        <button class='delete' phone-id=${phone.id}> delete </button>
+        <button class='edit' phone-id=${phone.id}> edit </button>
+        <button class='delete' phone-id=${phone.id}> delete </button>        
     </div>`
 }
 
@@ -38,7 +39,11 @@ function renderPhoneBook(phoneBook) {
                 reactNextPrevButton(data.pagination.isNext, data.pagination.isPrev);
                 setPage(data.page);
             });
-        })
+        });
+    });
+    $('.edit').click(function (e) {
+        const id = $(this).attr('phone-id');
+        editPhoneBook(id);
     });
 }
 
@@ -72,6 +77,10 @@ function deletePhoneBook(id) {
         .catch(function (e) {
             alert(e.stack);
         })
+}
+
+function editPhoneBook(id) {
+    window.location = `/form?id=${id}`;
 }
 
 let page = 1;
@@ -122,7 +131,11 @@ $(function () {
             reactNextPrevButton(data.pagination.isNext, data.pagination.isPrev);
             setPage(data.page);
         });
-    })
+    });
+
+    $('#insert').click(function (e) {
+        window.location = '/form';
+    });
 })
 
 

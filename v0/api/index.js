@@ -1,12 +1,15 @@
-const { Router } = require('express');
-const router = Router();
+const express = require('express');
+const router = express.Router();
 const faker = require('faker');
+const MAX = 1000;
 
 let phoneBook = [];
 
+const genId = (max) => Math.floor(Math.random() * Math.floor(max))
+
 const genPhone = (max) => {
     return {
-        id: Math.floor(Math.random() * Math.floor(max)),
+        id: genId(max),
         name: faker.name.findName(),
         number: faker.phone.phoneNumber(),
         email: faker.internet.email()
@@ -36,7 +39,9 @@ const pagination = (page, limit, phoneBookParam) => {
     }
 }
 
-genPhoneBook(1000);
+genPhoneBook(MAX);
+
+router.use(express.json());
 
 router.get('/', (req, res) => {
     const defaultPage = 1;
@@ -53,8 +58,28 @@ router.get('/', (req, res) => {
     res.json(pagination(req.query.page || defaultPage, req.query.limit || defaultLimit, phoneBook))
 });
 
+router.get('/:id', (req, res) => {
+    res.json({ data: phoneBook.find(data => data.id == req.params.id) })
+});
+
 router.delete('/:id', (req, res) => {
     phoneBook = phoneBook.filter(book => book.id !== parseInt(req.params.id));
+    res.json({ success: true });
+});
+
+router.post('/', (req, res) => {
+    if (req.body.id === 0) {
+        const phone = req.body;
+        phone.id = genId(MAX);
+        phoneBook = [phone].concat(phoneBook);
+    } else {
+        const phone = req.body;
+        for (let i = 0; i < phoneBook.length; i++) {
+            if (phone.id === phoneBook[i].id) {
+                phoneBook[i] = phone;
+            }
+        }
+    }
     res.json({ success: true });
 });
 

@@ -12,3 +12,15 @@
   font-size: 20px;
   text-align: center;
 }
+
+button {
+  padding: 10px;
+  font-size: 15px;
+  border-color: black;
+}
+
+input{
+  padding: 10px;
+  font-size: 15px;
+  border-color: black; 
+}

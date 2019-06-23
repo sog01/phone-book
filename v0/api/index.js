@@ -39,6 +39,17 @@ const pagination = (page, limit, phoneBookParam) => {
     }
 }
 
+const isMatch = (k1, k2) => {
+    const length = k1.length > k2.length ? k2.length : k1.length;
+    for (let i = 0; i < length; i++) {
+        const c1 = k1[i].toUpperCase();
+        const c2 = k2[i].toUpperCase();
+        if (c1 !== c2) return false;
+    }
+
+    return true;
+}
+
 genPhoneBook(MAX);
 
 router.use(express.json());
@@ -49,7 +60,7 @@ router.get('/', (req, res) => {
 
     if (req.query.keyword) {
         const find = book => {
-            const key = Object.keys(book).find(key => book[key].toString() === req.query.keyword)
+            const key = Object.keys(book).find(key => isMatch(book[key].toString(), req.query.keyword))
             return key !== undefined;
         }
 
